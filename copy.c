@@ -32,21 +32,20 @@ int main(int argc, char *argv[]){
 	printf("Size of file is %lu \n", f_stat.st_size);
 	part[0].offset = 0;
 	part[0].size = f_stat.st_size / numb;
-	for(j =0; j<numb; j++){
-		part[j].size=part[0].size;
-		offset_size+=part[j].size;
+	for(j =1; j<numb; j++){
+		offset_size+=part[j-1].size;
 		part[j].offset=offset_size;
-	} 
+		part[j].size=part[0].size;
+	} /*
 	part2.offset = part1.size;
 	part2.size = part1.size;
 	part3.offset = part2.offset + part2.size;
 	part3.size = f_stat.st_size - part3.offset;
-
+*/
 	fin1 = open(file, O_RDONLY);
 	fout1 = open(fileout, O_WRONLY|O_CREAT, 0666);
-
-        pthread_create(&t1, NULL, func1, &part2);
-	pthread_create(&t2, NULL, func1, &part3);
+	for(j=0; j<numb; j++)
+		pthread_create(&t[numb], NULL, func1, &part[numb]);
 
 	while(i < part1.size){	
 		x = read(fin1, data, SIZE);

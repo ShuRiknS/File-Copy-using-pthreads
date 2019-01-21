@@ -24,10 +24,10 @@ int main(int argc, char *argv[]){
 	char data[SIZE];
 	struct stat f_stat;
 	int fin1, fout1, x, chk, i=0;
-	int numb, j;
+	int numb=5, j;
 	unsigned long offset_size=0;
-	printf("Enter number of threads: ");
-	scanf("%d",&numb);
+	//printf("Enter number of threads: ");
+	//scanf("%d",&numb); 				this isn't working. Help Me PLOX :(
 	PART part[numb];
 	pthread_t t[numb];
 	stat(file, &f_stat);
